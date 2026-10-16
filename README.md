@@ -51,3 +51,10 @@ one binding. Anonymous functions passed inline to `on` cannot be removed by
 Errors thrown from handlers propagate out of `emit`. There is no per-listener
 try/catch; swallowing errors silently would hide bugs. Wrap a handler in its
 own try/catch if you want it to fail soft.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
